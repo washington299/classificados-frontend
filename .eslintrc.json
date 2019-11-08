@@ -21,6 +21,7 @@
     "rules": {
       "react/jsx-filename-extension": "off",
       "jsx-a11y/label-has-associated-control": "off",
-      "consistent-return": "off"
+      "consistent-return": "off",
+      "no-param-reassign": "off"
     }
 }

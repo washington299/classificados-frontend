@@ -27,7 +27,7 @@ const Login = () => {
       return;
     }
 
-    doLogin(json.jwt, rememberPassword);
+    doLogin(json.token, rememberPassword);
     window.location.href = '/';
   }
 
