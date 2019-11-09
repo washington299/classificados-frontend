@@ -34,7 +34,9 @@ const Header = () => {
                   <button type="button" onClick={handleLogout}>Sair</button>
                 </li>
                 <li>
-                  <Link to="add-post" className="button">Poste um anúncio</Link>
+                  <Link to="add-post" className="button">
+                    Poste um anúncio
+                  </Link>
                 </li>
               </>
             )}
@@ -48,7 +50,9 @@ const Header = () => {
                   <Link to="sign-up">Cadastre-se</Link>
                 </li>
                 <li>
-                  <Link to="sign-in" className="button">Poste um anúncio</Link>
+                  <Link to="sign-in" className="button">
+                    Poste um anúncio
+                  </Link>
                 </li>
               </>
             )}

@@ -78,6 +78,16 @@ const Api = {
 
     return json.states;
   },
+  getCategories: async () => {
+    const json = await apiGet('/categories');
+
+    return json.categories;
+  },
+  getAds: async (options) => {
+    const json = await apiGet('/ad/list', options);
+
+    return json;
+  },
 };
 
 export default () => Api;
