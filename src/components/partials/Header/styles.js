@@ -50,9 +50,13 @@ export default styled.div`
       li {
         margin: 0 20px;
 
-        a {
+        a, button {
+          border: 0;
+          background: 0;
           color: #000;
           font-size: 16px;
+          outline: 0;
+          cursor: pointer;
 
           &:hover {
             color: #999;

@@ -45,7 +45,7 @@ const apiGet = async (endpoint, body = []) => {
     url: `${baseURL + endpoint}?${qs.stringify(body)}`,
   });
 
-  const json = await res.json();
+  const json = res.data;
 
   if (json.notallowed) {
     window.location.href = '/signin';
@@ -62,6 +62,21 @@ const Api = {
     const json = await apiPost('/user/signin', { email, password });
 
     return json;
+  },
+  register: async (name, stateLocation, email, password) => {
+    const json = await apiPost('/user/signup', {
+      name,
+      stateLocation,
+      email,
+      password,
+    });
+
+    return json;
+  },
+  getStates: async () => {
+    const json = await apiGet('/states');
+
+    return json.states;
   },
 };
 
