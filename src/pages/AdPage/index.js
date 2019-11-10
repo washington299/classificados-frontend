@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 
-import { AdArea, Fake } from './styles';
+import AdItem from '../../components/partials/AdItem';
+
+import {
+  AdArea,
+  Fake,
+  OthersArea,
+  BreadChumb,
+} from './styles';
 import useApi from '../../helpers/Api';
 
 import { PageContainer } from '../../components/templateComponents';
@@ -54,6 +61,22 @@ const Register = () => {
 
   return (
     <PageContainer>
+      {adInfo.category && (
+        <BreadChumb>
+          Você está aqui:
+          <Link to="/">Home</Link>
+          /
+          <Link to={`/ads?state=${adInfo.stateName}`}>{adInfo.stateName}</Link>
+          /
+          <Link
+            to={`/ads?state=${adInfo.stateName}&cat=${adInfo.category.slug}`}
+          >
+            {adInfo.category.name}
+          </Link>
+          /&nbsp;
+          {adInfo.title}
+        </BreadChumb>
+      )}
       <AdArea>
         <div className="leftSide">
           <div className="box">
@@ -131,6 +154,20 @@ const Register = () => {
           )}
         </div>
       </AdArea>
+      <OthersArea>
+        {loading && <Fake height={30} marginBottom={20} />}
+        {loading && <Fake height={300} />}
+        {adInfo.others && (
+          <>
+            <h3>Outras ofertas do vendedor</h3>
+            <div className="list">
+              {adInfo.others.map((ad) => (
+                <AdItem key={ad.id} data={ad} />
+              ))}
+            </div>
+          </>
+        )}
+      </OthersArea>
     </PageContainer>
   );
 };

@@ -3,6 +3,19 @@ import styled from 'styled-components';
 export const Fake = styled.div`
   background-color: #CCC;
   height: ${(props) => props.height || 20}px;
+  margin-bottom: ${(props) => props.marginBottom || 0}px;
+`;
+
+export const BreadChumb = styled.div`
+  font-size: 13px;
+  margin-top: 20px;
+
+  a {
+    display: inline-block;
+    margin: 0 5px;
+    text-decoration: underline;
+    color: #000;
+  }
 `;
 
 export const AdArea = styled.div`
@@ -93,6 +106,16 @@ export const AdArea = styled.div`
       display: block;
       color: #999;
       margin-top: 10px;
+    }
+  }
+`;
+
+export const OthersArea = styled.div`
+  .list {
+    display: flex;
+
+    .adItem {
+      width: 25%;
     }
   }
 `;
