@@ -13,7 +13,7 @@ const Home = () => {
 
   const [stateList, setStateList] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [ads, setAds] = useState([]);
+  const [adList, setAdList] = useState([]);
 
   useEffect(() => {
     async function getStates() {
@@ -32,15 +32,15 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    async function getRecentsAds() {
+    async function getRecentAds() {
       const json = await api.getAds({
         sort: 'desc',
         limit: 8,
       });
 
-      setAds(json.ads);
+      setAdList(json.ads);
     }
-    getRecentsAds();
+    getRecentAds();
   }, []);
 
   return (
@@ -48,7 +48,7 @@ const Home = () => {
       <SearchArea>
         <PageContainer>
           <div className="searchBox">
-            <form method="GET">
+            <form method="GET" action="/ads">
               <input
                 type="text"
                 name="q"
@@ -80,7 +80,7 @@ const Home = () => {
         <HomeArea>
           <h2>Anúncios recentes</h2>
           <div className="list">
-            {ads.map((ad) => (
+            {adList.map((ad) => (
               <AdItem key={ad.id} data={ad} />
             ))}
           </div>

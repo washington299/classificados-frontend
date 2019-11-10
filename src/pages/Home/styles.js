@@ -92,6 +92,10 @@ export const HomeArea = styled.div`
   .list {
     display: flex;
     flex-wrap: wrap;
+
+    .adItem {
+      width: 25%;
+    }
   }
 
   .viewAllAds {
