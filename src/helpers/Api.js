@@ -55,6 +55,31 @@ const apiGet = async (endpoint, body = []) => {
   return json;
 };
 
+// Requests to upload files
+
+const apiFile = async (endpoint, body) => {
+  if (!body.token) {
+    const token = Cookies.get('token');
+    if (token) {
+      body.append('token', token);
+    }
+  }
+
+  const res = await fetch(baseURL + endpoint, {
+    method: 'POST',
+    body,
+  });
+
+  const json = await res.json();
+
+  if (json.notallowed) {
+    window.location.href = '/signin';
+    return;
+  }
+
+  return json;
+};
+
 // Functions to connect with the server.
 
 const Api = {
@@ -90,6 +115,11 @@ const Api = {
   },
   getAd: async (id, other = false) => {
     const json = await apiGet('/ad/item', { id, other });
+
+    return json;
+  },
+  addAd: async (fData) => {
+    const json = await apiFile('/ad/add', fData);
 
     return json;
   },

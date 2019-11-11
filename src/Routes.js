@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdPage from './pages/AdPage';
+import AddAd from './pages/AddAd';
 
 const Routes = () => (
   <Switch>
@@ -28,7 +29,7 @@ const Routes = () => (
       <AdPage />
     </RouteHandler>
     <RouteHandler private exact path="/post-an-ad">
-      <About />
+      <AddAd />
     </RouteHandler>
     <RouteHandler exact component={NotFound} />
   </Switch>
