@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdPage from './pages/AdPage';
 import AddAd from './pages/AddAd';
+import Ads from './pages/Ads';
 
 const Routes = () => (
   <Switch>
@@ -30,6 +31,9 @@ const Routes = () => (
     </RouteHandler>
     <RouteHandler private exact path="/post-an-ad">
       <AddAd />
+    </RouteHandler>
+    <RouteHandler exact path="/ads">
+      <Ads />
     </RouteHandler>
     <RouteHandler exact component={NotFound} />
   </Switch>

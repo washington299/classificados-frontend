@@ -57,7 +57,7 @@ const Home = () => {
               <select name="state">
                 <option value="" />
                 {stateList.map((state) => (
-                  <option key={state._id} value={state._id}>{state.name}</option>
+                  <option key={state._id} value={state.name}>{state.name}</option>
                 ))}
               </select>
               <button type="submit">
