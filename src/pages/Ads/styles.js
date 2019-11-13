@@ -54,5 +54,43 @@ export default styled.div`
   }
   .rightSide {
     flex: 1;
+
+    h2 {
+      margin-top: 0;
+      margin-left: 10px;
+      font-size: 18px;
+    }
+
+    .listWarning {
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+
+      .adItem {
+        width: 33%;
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+
+      .pageNumber {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        margin-right: 5px;
+      }
+    }
   }
 `;

@@ -2,26 +2,83 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import useApi from '../../helpers/Api';
-import AdItem from '../../components/partials/AdItem';
 
 import AdsArea from './styles';
 import { PageContainer } from '../../components/templateComponents';
+import AdItem from '../../components/partials/AdItem';
+
+let timer;
 
 const Ads = () => {
   const api = useApi();
+  const history = useHistory();
 
   function useQueryString() {
     return new URLSearchParams(useLocation().search);
   }
   const query = useQueryString();
 
-  const [q, setQ] = useState( query.get('q') !== null ? query.get('q') : '' );
-  const [cat, setCat] = useState( query.get('cat') !== null ? query.get('cat') : '' );
-  const [state, setState] = useState( query.get('state') !== null ? query.get('state') : '' );
+  const [q, setQ] = useState(query.get('q') !== null ? query.get('q') : '');
+  const [cat, setCat] = useState(query.get('cat') !== null ? query.get('cat') : '');
+  const [state, setState] = useState(query.get('state') !== null ? query.get('state') : '');
 
+  const [adsTotal, setAdsTotal] = useState(0);
   const [stateList, setStateList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [adList, setAdList] = useState([]);
+
+  const [resultOpacity, setResultOpacity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [pageCount, setPageCount] = useState(0);
+
+  async function getAdsList() {
+    setLoading(true);
+    const json = await api.getAds({
+      sort: 'desc',
+      limit: 2,
+      q,
+      state,
+      cat,
+    });
+
+    setAdList(json.ads);
+    setAdsTotal(json.total);
+    setResultOpacity(1);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (adList.length > 0) {
+      setPageCount(Math.ceil(adsTotal / adList.length));
+    } else {
+      setPageCount(0);
+    }
+  }, [adsTotal]);
+
+  useEffect(() => {
+    const queryString = [];
+
+    if (q) {
+      queryString.push(`q=${q}`);
+    }
+    if (state) {
+      queryString.push(`state=${state}`);
+    }
+    if (cat) {
+      queryString.push(`cat=${cat}`);
+    }
+
+    history.replace({
+      search: `${queryString.join('&')}`,
+    });
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(getAdsList, 2000);
+    setResultOpacity(0.3);
+  }, [q, cat, state]);
 
   useEffect(() => {
     async function getStates() {
@@ -39,17 +96,10 @@ const Ads = () => {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    async function getRecentAds() {
-      const json = await api.getAds({
-        sort: 'desc',
-        limit: 8,
-      });
-
-      setAdList(json.ads);
-    }
-    getRecentAds();
-  }, []);
+  const pagination = [];
+  for (let i = 1; i <= pageCount; i += 1) {
+    pagination.push(i);
+  }
 
   return (
     <PageContainer>
@@ -67,8 +117,8 @@ const Ads = () => {
             <div className="filterName">Estado:</div>
             <select name="state" value={state} onChange={(e) => setState(e.target.value)}>
               <option />
-              {stateList.map((state) => (
-                <option key={state._id} value={state.name}>{state.name}</option>
+              {stateList.map((location) => (
+                <option key={location._id} value={location.name}>{location.name}</option>
               ))}
             </select>
 
@@ -78,6 +128,7 @@ const Ads = () => {
                 <li
                   key={category._id}
                   className={cat === category.slug ? 'categoryItem active' : 'categoryItem'}
+                  onClick={() => setCat(category.slug)}
                 >
                   <img src={category.img} alt={category.name} />
                   <span>{category.name}</span>
@@ -87,7 +138,24 @@ const Ads = () => {
           </form>
         </div>
         <div className="rightSide">
-          ...
+          <h2>Resultados:</h2>
+          {loading && (
+            <div className="listWarning">Carregando...</div>
+          )}
+          {!loading && adList.length === 0 && (
+            <div className="listWarning">Nenhum resultado encontrado.</div>
+          )}
+          <div className="list" style={{ opacity: resultOpacity }}>
+            {adList.map((ad) => (
+              <AdItem key={ad.id} data={ad} />
+            ))}
+          </div>
+
+          <div className="pagination">
+            {pagination.map((n) => (
+              <div className="pageNumber">{n}</div>
+            ))}
+          </div>
         </div>
       </AdsArea>
     </PageContainer>
