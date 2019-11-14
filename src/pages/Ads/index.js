@@ -38,7 +38,7 @@ const Ads = () => {
 
     const json = await api.getAds({
       sort: 'desc',
-      limit: 9,
+      limit: 10,
       q,
       state,
       cat,

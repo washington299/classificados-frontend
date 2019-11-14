@@ -59,4 +59,27 @@ export default styled.div`
       }
     }
   }
+
+@media (max-width: 600px) {
+  form {
+    .area {
+      flex-direction: column;
+      max-width: 100%;
+
+      .area--title {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      .area--input {
+        width: 100%;
+
+        button {
+          width: 100%;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
 `;

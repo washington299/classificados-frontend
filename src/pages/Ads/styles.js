@@ -56,8 +56,7 @@ export default styled.div`
     flex: 1;
 
     h2 {
-      margin-top: 0;
-      margin-left: 10px;
+      text-align: center;
       font-size: 18px;
     }
 
@@ -101,4 +100,29 @@ export default styled.div`
       }
     }
   }
+
+@media (max-width: 600px) {
+  & {
+    flex-direction: column;
+  }
+  .leftSide {
+    width: auto;
+    margin: 0 10px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        width: 50%;
+      }
+    }
+  }
+
+  .rightSide {
+    .list .adItem {
+      width: 50%;
+    }
+  }
+}
 `;
