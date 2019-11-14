@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import AdPage from './pages/AdPage';
 import AddAd from './pages/AddAd';
 import Ads from './pages/Ads';
+import MyAccount from './pages/MyAccount';
 
 const Routes = () => (
   <Switch>
@@ -34,6 +35,9 @@ const Routes = () => (
     </RouteHandler>
     <RouteHandler exact path="/ads">
       <Ads />
+    </RouteHandler>
+    <RouteHandler private exact path="/my-account">
+      <MyAccount />
     </RouteHandler>
     <RouteHandler exact component={NotFound} />
   </Switch>

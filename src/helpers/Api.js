@@ -123,6 +123,11 @@ const Api = {
 
     return json;
   },
+  getMyUser: async () => {
+    const json = await apiGet('/user/me');
+
+    return json;
+  },
 };
 
 export default () => Api;

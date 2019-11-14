@@ -30,15 +30,19 @@ const Ads = () => {
   const [resultOpacity, setResultOpacity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [pageCount, setPageCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   async function getAdsList() {
     setLoading(true);
+    const offset = (currentPage - 1) * 2;
+
     const json = await api.getAds({
       sort: 'desc',
-      limit: 2,
+      limit: 9,
       q,
       state,
       cat,
+      offset,
     });
 
     setAdList(json.ads);
@@ -78,7 +82,13 @@ const Ads = () => {
 
     timer = setTimeout(getAdsList, 2000);
     setResultOpacity(0.3);
+    setCurrentPage(1);
   }, [q, cat, state]);
+
+  useEffect(() => {
+    setResultOpacity(0.3);
+    getAdsList();
+  }, [currentPage]);
 
   useEffect(() => {
     async function getStates() {
@@ -139,7 +149,7 @@ const Ads = () => {
         </div>
         <div className="rightSide">
           <h2>Resultados:</h2>
-          {loading && (
+          {loading && adList.length === 0 && (
             <div className="listWarning">Carregando...</div>
           )}
           {!loading && adList.length === 0 && (
@@ -153,7 +163,12 @@ const Ads = () => {
 
           <div className="pagination">
             {pagination.map((n) => (
-              <div className="pageNumber">{n}</div>
+              <div
+                onClick={() => setCurrentPage(n)}
+                className={n === currentPage ? 'pageNumber active' : 'pageNumber'}
+              >
+                {n}
+              </div>
             ))}
           </div>
         </div>
