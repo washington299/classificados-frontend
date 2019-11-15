@@ -4,7 +4,6 @@ import { Switch } from 'react-router-dom';
 import RouteHandler from './components/RouteHandler';
 
 import Home from './pages/Home';
-import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -17,9 +16,6 @@ const Routes = () => (
   <Switch>
     <RouteHandler exact path="/">
       <Home />
-    </RouteHandler>
-    <RouteHandler exact path="/about">
-      <About />
     </RouteHandler>
     <RouteHandler exact path="/sign-in">
       <Login />

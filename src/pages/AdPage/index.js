@@ -85,7 +85,7 @@ const Register = () => {
               {adInfo.images && (
                 <Slide {...slideProperties}>
                   {adInfo.images.map((image) => (
-                    <div key={image.id} className="each-slide">
+                    <div key={image} className="each-slide">
                       <img src={image} alt="" />
                     </div>
                   ))}
