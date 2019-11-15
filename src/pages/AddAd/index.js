@@ -85,7 +85,7 @@ const Login = () => {
 
   return (
     <PageContainer>
-      <PageTitle>Postar um anúncio</PageTitle>
+      <PageTitle>Adicionar um Produto</PageTitle>
 
       <LoginArea>
         <form onSubmit={handleSubmit}>

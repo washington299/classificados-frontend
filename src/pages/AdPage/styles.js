@@ -80,7 +80,7 @@ export const AdArea = styled.div`
 
     .price span {
       display: block;
-      color: #00F;
+      color: #2abf65;
       font-size: 27px;
       font-weight: bold;
     }

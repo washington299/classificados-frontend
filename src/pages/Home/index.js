@@ -78,7 +78,7 @@ const Home = () => {
       </SearchArea>
       <PageContainer>
         <HomeArea>
-          <h2>Anúncios recentes</h2>
+          <h2>Produtos recentes</h2>
           <div className="list">
             {adList.map((ad) => (
               <AdItem key={ad.id} data={ad} />

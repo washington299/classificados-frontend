@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
 import HeaderArea from './styles';
 import { isLogged, doLogout } from '../../../helpers/AuthHandler';
@@ -17,9 +18,8 @@ const Header = () => {
       <div className="container">
         <div className="logo">
           <Link to="/">
-            <span className="letter-1">O</span>
-            <span className="letter-2">L</span>
-            <span className="letter-3">X</span>
+            <span className="logo--name">Classificados</span>
+            <FaShoppingCart />
           </Link>
         </div>
 
@@ -35,7 +35,7 @@ const Header = () => {
                 </li>
                 <li>
                   <Link to="post-an-ad" className="button">
-                    Poste um anúncio
+                    Anuncie um produto
                   </Link>
                 </li>
               </>
