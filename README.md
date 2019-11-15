@@ -1,7 +1,6 @@
 # Sistema de classificados - frontend
 
-<img src="/src/assets/images/mobile.png" alt="mobile">
-<img src="/src/assets/images/desktop.png" alt="desktop">
+<img src="/src/assets/images/layout.png" alt="layout" title="Layout">
 
 ## projeto
 
