@@ -4,28 +4,25 @@ import { Slide } from 'react-slideshow-image';
 
 import AdItem from '../../components/partials/AdItem';
 
-import {
-  AdArea,
-  Fake,
-  OthersArea,
-  BreadChumb,
-} from './styles';
+import { AdArea, Fake, OthersArea, BreadChumb } from './styles';
 import useApi from '../../helpers/Api';
 
 import { PageContainer } from '../../components/templateComponents';
 
-const Register = () => {
+const AdPage = () => {
   const api = useApi();
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
   const [adInfo, setAdInfo] = useState([]);
+  const [othersAds, setOthersAds] = useState([]);
 
   useEffect(() => {
     async function getAdInfo(adId) {
       const response = await api.getAd(adId, true);
 
-      setAdInfo(response);
+      setAdInfo(response.ad);
+      setOthersAds(response.others);
       setLoading(false);
     }
     getAdInfo(id);
@@ -61,17 +58,13 @@ const Register = () => {
 
   return (
     <PageContainer>
-      {adInfo.category && (
+      {adInfo.ad && (
         <BreadChumb>
           Você está aqui:
-          <Link to="/">Home</Link>
-          /
-          <Link to={`/ads?state=${adInfo.stateName}`}>{adInfo.stateName}</Link>
-          /
-          <Link
-            to={`/ads?state=${adInfo.stateName}&cat=${adInfo.category.slug}`}
-          >
-            {adInfo.category.name}
+          <Link to="/">Home</Link>/
+          <Link to={`/ads?state=${adInfo.state}`}>{adInfo.state}</Link>/
+          <Link to={`/ads?state=${adInfo.state}&cat=${adInfo.category}`}>
+            {adInfo.category}
           </Link>
           /&nbsp;
           {adInfo.title}
@@ -82,9 +75,9 @@ const Register = () => {
           <div className="box">
             <div className="adImage">
               {loading && <Fake height={300} />}
-              {adInfo.images && (
+              {adInfo.photos_url && (
                 <Slide {...slideProperties}>
-                  {adInfo.images.map((image) => (
+                  {adInfo.photos_url.map(image => (
                     <div key={image} className="each-slide">
                       <img src={image} alt="" />
                     </div>
@@ -95,13 +88,11 @@ const Register = () => {
             <div className="adInfo">
               <div className="adName">
                 {loading && <Fake height={30} />}
-                {adInfo.title && (
-                  <h2>{adInfo.title}</h2>
-                )}
-                {adInfo.dateCreated && (
+                {adInfo.title && <h2>{adInfo.title}</h2>}
+                {adInfo.createdAt && (
                   <small>
                     Criado em
-                    {formatDate(adInfo.dateCreated)}
+                    {formatDate(adInfo.createdAt)}
                   </small>
                 )}
               </div>
@@ -112,9 +103,7 @@ const Register = () => {
                 <hr />
 
                 {adInfo.views && (
-                  <small>
-                    {`Visualizaçoes: ${adInfo.views}`}
-                  </small>
+                  <small>{`Visualizaçoes: ${adInfo.views}`}</small>
                 )}
               </div>
             </div>
@@ -123,10 +112,8 @@ const Register = () => {
         <div className="rightSide">
           <div className="box box--padding">
             {loading && <Fake height={30} />}
-            {adInfo.priceNegotiable && (
-              <span>Preço negociável</span>
-            )}
-            {!adInfo.priceNegotiable && adInfo.price && (
+            {adInfo.priceNeg && <span>Preço negociável</span>}
+            {!adInfo.priceNeg && adInfo.price && (
               <div className="price">
                 Preço:
                 <span>{`R$ ${adInfo.price}`}</span>
@@ -148,7 +135,7 @@ const Register = () => {
                 Vendedor:
                 <strong>{adInfo.userInfo.name}</strong>
                 <small>{`E-mail: ${adInfo.userInfo.email}`}</small>
-                <small>{`Estado: ${adInfo.stateName}`}</small>
+                <small>{`Estado: ${adInfo.userInfo.state}`}</small>
               </div>
             </>
           )}
@@ -157,12 +144,12 @@ const Register = () => {
       <OthersArea>
         {loading && <Fake height={30} marginBottom={20} />}
         {loading && <Fake height={300} />}
-        {adInfo.others && (
+        {othersAds && (
           <>
             <h3>Outras ofertas do vendedor</h3>
             <div className="list">
-              {adInfo.others.map((ad) => (
-                <AdItem key={ad.id} data={ad} />
+              {othersAds.map(ad => (
+                <AdItem key={ad._id} data={ad} />
               ))}
             </div>
           </>
@@ -172,4 +159,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AdPage;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
@@ -6,7 +6,17 @@ import HeaderArea from './styles';
 import { isLogged, doLogout } from '../../../helpers/AuthHandler';
 
 const Header = () => {
-  const logged = isLogged();
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    async function verifyAuth() {
+      const res = await isLogged();
+      console.log(res);
+      setLogged(res);
+    }
+
+    verifyAuth();
+  }, []);
 
   function handleLogout() {
     doLogout();
@@ -31,7 +41,9 @@ const Header = () => {
                   <Link to="/my-account">Minha conta</Link>
                 </li>
                 <li>
-                  <button type="button" onClick={handleLogout}>Sair</button>
+                  <button type="button" onClick={handleLogout}>
+                    Sair
+                  </button>
                 </li>
                 <li>
                   <Link to="post-an-ad" className="button">

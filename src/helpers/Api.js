@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import qs from 'qs';
 
-const baseURL = 'http://alunos.b7web.com.br:501';
+const baseURL = 'http://localhost:3003';
 
 // Requests type POST
 
@@ -88,10 +88,10 @@ const Api = {
 
     return json;
   },
-  register: async (name, stateLocation, email, password) => {
+  register: async (name, state, email, password) => {
     const json = await apiPost('/user/signup', {
       name,
-      stateLocation,
+      state,
       email,
       password,
     });
@@ -108,7 +108,7 @@ const Api = {
 
     return json.categories;
   },
-  getAds: async (options) => {
+  getAds: async options => {
     const json = await apiGet('/ad/list', options);
 
     return json;
@@ -118,7 +118,7 @@ const Api = {
 
     return json;
   },
-  addAd: async (fData) => {
+  addAd: async fData => {
     const json = await apiFile('/ad/add', fData);
 
     return json;

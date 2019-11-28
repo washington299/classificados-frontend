@@ -19,8 +19,12 @@ const Ads = () => {
   const query = useQueryString();
 
   const [q, setQ] = useState(query.get('q') !== null ? query.get('q') : '');
-  const [cat, setCat] = useState(query.get('cat') !== null ? query.get('cat') : '');
-  const [state, setState] = useState(query.get('state') !== null ? query.get('state') : '');
+  const [cat, setCat] = useState(
+    query.get('cat') !== null ? query.get('cat') : ''
+  );
+  const [state, setState] = useState(
+    query.get('state') !== null ? query.get('state') : ''
+  );
 
   const [adsTotal, setAdsTotal] = useState(0);
   const [stateList, setStateList] = useState([]);
@@ -121,26 +125,36 @@ const Ads = () => {
               name="q"
               placeholder="O que você procura?"
               value={q}
-              onChange={(e) => setQ(e.target.value)}
+              onChange={e => setQ(e.target.value)}
             />
 
             <div className="filterName">Estado:</div>
-            <select name="state" value={state} onChange={(e) => setState(e.target.value)}>
+            <select
+              name="state"
+              value={state}
+              onChange={e => setState(e.target.value)}
+            >
               <option />
-              {stateList.map((location) => (
-                <option key={location._id} value={location.name}>{location.name}</option>
+              {stateList.map(location => (
+                <option key={location} value={location}>
+                  {location}
+                </option>
               ))}
             </select>
 
             <div className="filterName">Categoria:</div>
             <ul>
-              {categories.map((category) => (
+              {categories.map(category => (
                 <li
                   key={category._id}
-                  className={cat === category.slug ? 'categoryItem active' : 'categoryItem'}
+                  className={
+                    cat === category.slug
+                      ? 'categoryItem active'
+                      : 'categoryItem'
+                  }
                   onClick={() => setCat(category.slug)}
                 >
-                  <img src={category.img} alt={category.name} />
+                  <img src={category.thumbnail_url} alt={category.name} />
                   <span>{category.name}</span>
                 </li>
               ))}
@@ -156,16 +170,18 @@ const Ads = () => {
             <div className="listWarning">Nenhum resultado encontrado.</div>
           )}
           <div className="list" style={{ opacity: resultOpacity }}>
-            {adList.map((ad) => (
+            {adList.map(ad => (
               <AdItem key={ad.id} data={ad} />
             ))}
           </div>
 
           <div className="pagination">
-            {pagination.map((n) => (
+            {pagination.map(n => (
               <div
                 onClick={() => setCurrentPage(n)}
-                className={n === currentPage ? 'pageNumber active' : 'pageNumber'}
+                className={
+                  n === currentPage ? 'pageNumber active' : 'pageNumber'
+                }
               >
                 {n}
               </div>

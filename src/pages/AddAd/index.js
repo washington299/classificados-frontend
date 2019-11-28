@@ -6,7 +6,11 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import LoginArea from './styles';
 import useApi from '../../helpers/Api';
 
-import { PageContainer, PageTitle, ErrorMessage } from '../../components/templateComponents';
+import {
+  PageContainer,
+  PageTitle,
+  ErrorMessage,
+} from '../../components/templateComponents';
 
 const Login = () => {
   const api = useApi();
@@ -89,9 +93,7 @@ const Login = () => {
 
       <LoginArea>
         <form onSubmit={handleSubmit}>
-          {error && (
-            <ErrorMessage>{error}</ErrorMessage>
-          )}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
 
           <label className="area">
             <div className="area--title">Titulo:</div>
@@ -101,7 +103,7 @@ const Login = () => {
                 disabled={disabled}
                 value={title}
                 required
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
               />
             </div>
           </label>
@@ -111,13 +113,16 @@ const Login = () => {
             <div className="area--input">
               <select
                 disabled={disabled}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={e => setCategory(e.target.value)}
                 required
               >
                 <option />
-                {categories && categories.map((i) => (
-                  <option key={i._id} value={i._id}>{i.name}</option>
-                ))}
+                {categories &&
+                  categories.map(i => (
+                    <option key={i._id} value={i._id}>
+                      {i.name}
+                    </option>
+                  ))}
               </select>
             </div>
           </label>
@@ -130,7 +135,7 @@ const Login = () => {
                 placeholder="R$ "
                 disabled={disabled || priceNegotiable}
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={e => setPrice(e.target.value)}
               />
             </div>
           </label>
@@ -153,7 +158,7 @@ const Login = () => {
               <textarea
                 disabled={disabled}
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={e => setDescription(e.target.value)}
               />
             </div>
           </label>
@@ -161,19 +166,16 @@ const Login = () => {
           <label className="area">
             <div className="area--title">Imagens: (1 ou mais)</div>
             <div className="area--input">
-              <input
-                type="file"
-                disabled={disabled}
-                ref={fileField}
-                multiple
-              />
+              <input type="file" disabled={disabled} ref={fileField} multiple />
             </div>
           </label>
 
           <div className="area">
             <div className="area--title" />
             <div className="area--input">
-              <button type="submit" disabled={disabled}>Adicionar anúncio</button>
+              <button type="submit" disabled={disabled}>
+                Adicionar anúncio
+              </button>
             </div>
           </div>
         </form>

@@ -4,7 +4,11 @@ import LoginArea from './styles';
 import useApi from '../../helpers/Api';
 import { doLogin } from '../../helpers/AuthHandler';
 
-import { PageContainer, PageTitle, ErrorMessage } from '../../components/templateComponents';
+import {
+  PageContainer,
+  PageTitle,
+  ErrorMessage,
+} from '../../components/templateComponents';
 
 const Register = () => {
   const api = useApi();
@@ -40,12 +44,7 @@ const Register = () => {
       return;
     }
 
-    const json = await api.register(
-      name,
-      stateLocation,
-      email,
-      password,
-    );
+    const json = await api.register(name, stateLocation, email, password);
 
     if (json.error) {
       setError(json.error);
@@ -63,9 +62,7 @@ const Register = () => {
 
       <LoginArea>
         <form onSubmit={handleSubmit}>
-          {error && (
-            <ErrorMessage>{error}</ErrorMessage>
-          )}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
 
           <label className="area">
             <div className="area--title">Nome completo:</div>
@@ -75,7 +72,7 @@ const Register = () => {
                 disabled={disabled}
                 value={name}
                 required
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
               />
             </div>
           </label>
@@ -85,11 +82,13 @@ const Register = () => {
             <div className="area--input">
               <select
                 value={stateLocation}
-                onChange={(e) => setStateLocation(e.target.value)}
+                onChange={e => setStateLocation(e.target.value)}
               >
                 <option value="" />
-                {stateLocationsList.map((state) => (
-                  <option key={state._id} value={state._id}>{state.name}</option>
+                {stateLocationsList.map(state => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
                 ))}
               </select>
             </div>
@@ -103,7 +102,7 @@ const Register = () => {
                 disabled={disabled}
                 value={email}
                 required
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
           </label>
@@ -116,7 +115,7 @@ const Register = () => {
                 disabled={disabled}
                 value={password}
                 required
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </div>
           </label>
@@ -129,7 +128,7 @@ const Register = () => {
                 disabled={disabled}
                 value={confirmPassword}
                 required
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={e => setConfirmPassword(e.target.value)}
               />
             </div>
           </label>
@@ -137,7 +136,9 @@ const Register = () => {
           <div className="area">
             <div className="area--title" />
             <div className="area--input">
-              <button type="submit" disabled={disabled}>Fazer login</button>
+              <button type="submit" disabled={disabled}>
+                Cadastrar
+              </button>
             </div>
           </div>
         </form>
