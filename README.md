@@ -18,9 +18,9 @@ futuras.
 
 ## api consumida
 
-Atualmente a API consumida para desenvolver esse projeto está localizada nessa url: http://alunos.b7web.com.br:501.
+Atualmente a API consumida para desenvolver esse projeto está localizada nesse repositório: https://github.com/washington299/classificados-backend.
 
-Nota: Estou desenvolvendo uma api mais completa para o backend desse projeto...
+Nota: Sinta-se a vontade para contribuir tanto no back-end quanto no front-end da aplicação, essa é uma aplicação apenas para fins de aprendizado e com tecnologias simples então aqui é o lugar certo para você treinar suas habilidades :)
 
 ## contribuições
 
