@@ -10,7 +10,7 @@ const AdItem = ({ data }) => {
   if (data.priceNeg) {
     price = 'Preço negociável';
   } else {
-    price = `R$ ${data.price}`;
+    price = data.price;
   }
 
   return (
@@ -20,7 +20,14 @@ const AdItem = ({ data }) => {
           <img src={img} alt={data.title} />
         </div>
         <div className="itemName">{data.title}</div>
-        <div className="itemPrice">{price}</div>
+        <div className="itemPrice">
+          {data.priceNeg && 'Preço negociável'}
+          {data.priceNeg === false &&
+            new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            }).format(price)}
+        </div>
       </Link>
     </Item>
   );

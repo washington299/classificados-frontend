@@ -116,7 +116,12 @@ const AdPage = () => {
             {!adInfo.priceNeg && adInfo.price && (
               <div className="price">
                 Preço:
-                <span>{`R$ ${adInfo.price}`}</span>
+                <span>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(adInfo.price)}
+                </span>
               </div>
             )}
           </div>

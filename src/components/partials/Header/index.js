@@ -11,7 +11,7 @@ const Header = () => {
   useEffect(() => {
     async function verifyAuth() {
       const res = await isLogged();
-      console.log(res);
+
       setLogged(res);
     }
 

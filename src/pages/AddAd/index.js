@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import MaskedInput from 'react-text-mask';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import NumberFormat from 'react-number-format';
 
-import LoginArea from './styles';
+import AddArea from './styles';
 import useApi from '../../helpers/Api';
 
 import {
@@ -12,7 +11,7 @@ import {
   ErrorMessage,
 } from '../../components/templateComponents';
 
-const Login = () => {
+const AddAd = () => {
   const api = useApi();
   const fileField = useRef();
   const history = useHistory();
@@ -22,7 +21,7 @@ const Login = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
-  const [priceNegotiable, setPriceNegotiable] = useState(false);
+  const [priceNeg, setPriceNeg] = useState(false);
   const [description, setDescription] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
@@ -33,6 +32,7 @@ const Login = () => {
 
       setCategories(response);
     }
+
     getCategories();
   }, []);
 
@@ -54,7 +54,7 @@ const Login = () => {
 
       fData.append('title', title);
       fData.append('price', price);
-      fData.append('priceneg', priceNegotiable);
+      fData.append('priceneg', priceNeg);
       fData.append('desc', description);
       fData.append('cat', category);
 
@@ -79,19 +79,11 @@ const Login = () => {
     setDisabled(false);
   }
 
-  const priceMask = createNumberMask({
-    prefix: 'R$ ',
-    includeThousandsSeparator: true,
-    thousandsSeparatorSymbol: '.',
-    allowDecimal: true,
-    decimalSymbol: ',',
-  });
-
   return (
     <PageContainer>
       <PageTitle>Adicionar um Produto</PageTitle>
 
-      <LoginArea>
+      <AddArea>
         <form onSubmit={handleSubmit}>
           {error && <ErrorMessage>{error}</ErrorMessage>}
 
@@ -119,7 +111,7 @@ const Login = () => {
                 <option />
                 {categories &&
                   categories.map(i => (
-                    <option key={i._id} value={i._id}>
+                    <option key={i._id} value={i.name}>
                       {i.name}
                     </option>
                   ))}
@@ -130,12 +122,17 @@ const Login = () => {
           <label className="area">
             <div className="area--title">Preço:</div>
             <div className="area--input">
-              <MaskedInput
-                mask={priceMask}
-                placeholder="R$ "
-                disabled={disabled || priceNegotiable}
+              <NumberFormat
                 value={price}
-                onChange={e => setPrice(e.target.value)}
+                onValueChange={values => {
+                  setPrice(values.formattedValue);
+                }}
+                prefix="R$"
+                decimalSeparator=","
+                thousandSeparator="."
+                allowNegative={false}
+                placeholder="R$"
+                disabled={disabled || (priceNeg === true && 'disabled')}
               />
             </div>
           </label>
@@ -145,9 +142,9 @@ const Login = () => {
             <div className="area--input">
               <input
                 type="checkbox"
-                disabled={disabled}
-                checked={priceNegotiable}
-                onChange={() => setPriceNegotiable(!priceNegotiable)}
+                disabled={disabled || (price !== '' && 'disabled')}
+                checked={priceNeg}
+                onChange={() => setPriceNeg(!priceNeg)}
               />
             </div>
           </label>
@@ -179,9 +176,9 @@ const Login = () => {
             </div>
           </div>
         </form>
-      </LoginArea>
+      </AddArea>
     </PageContainer>
   );
 };
 
-export default Login;
+export default AddAd;
