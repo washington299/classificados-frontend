@@ -9,12 +9,19 @@ aprendizado para melhorar as habilidades nas tecnologias usadas nele.
 
 Nota: O projeto ainda não está terminado, aos poucos estou desenvolvendo as novas páginas.
 
-## tecnologias
+## Bibliotecas
 
-Este projeto foi feito apenas usando a Biblioteca [ReactJs](https://reactjs.org/) e tambem
-foi usada a ferramenta [Eslint](https://eslint.org/) com as configurações do estilo de código
-do [AirBnb](https://github.com/airbnb/javascript) para melhorar a qualidade do código e manutenções
-futuras.
+- axios
+- js-cookie
+- qs
+- react-icons
+- react-number-format
+- react-redux
+- react-slideshow-image
+- redux
+- styled-components
+- Eslint
+- Prettier
 
 ## api consumida
 
